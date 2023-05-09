@@ -1,10 +1,11 @@
-package org.example;
+package org.productExchange;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -70,7 +71,7 @@ public class Main {
                 System.out.println(exchangeProduct(newInput.substring(5,11), newInput.substring(11))); //상점, 상품코드 검사
             } else if (Pattern.matches("^(?i)claim[a-zA-Z]{6}.*",newInput)) {
                 System.out.println("상품 코드를 다시 확인해 주세요.");
-            } else { //
+            } else {
                 System.out.println("상점 코드를 다시 확인해 주세요");
             }
 
@@ -81,7 +82,7 @@ public class Main {
         }
     }
 
-    //상품 교환 여부 확인 (check)
+    //상품 교환 여부 확인
     private static String checkExchangeStatus(String productCode){ //입력값과 동일한 상품코드를 가진 상품의 exchangeStatus 반환
         for (int i=0;i<products.size();i++){
             if(products.get(i).getProductCode().equals(productCode)){ //입력한 상품코드와 실제 상품들 상품코드 비교
@@ -92,7 +93,7 @@ public class Main {
         return "입력하신 상품코드가 존재하지 않습니다.";
     }
 
-    //사용법 안내 (help)
+    //사용법 안내
     private static void showInstruction(){
         System.out.println("<안내사항>");
         System.out.println("1. 상품 교환 여부를 확인하실 고객님들께서는 입력칸에 'CHECK 상품코드(숫자 9자리)'를 입력해주시기 바랍니다.\n예시) CHECK 000 000 001");
@@ -100,7 +101,7 @@ public class Main {
         System.out.println("3. 안내사항을 다시 읽고 싶으시다면 'HELP'를 입력해주세요.");
     }
 
-    //상품 교환 (claim)
+    //상품 교환
     private static String exchangeProduct(String storeCode, String productCode){
         for (int i=0;i<products.size();i++){
             if(products.get(i).getProductCode().equals(productCode) //상품코드 확인
