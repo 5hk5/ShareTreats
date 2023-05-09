@@ -1,4 +1,4 @@
-package org.productExchange;
+package org.example;
 
 import java.util.List;
 
@@ -24,10 +24,6 @@ public class Product {
 
     public List<String> getAvailableStoreCodes(){return availableStoreCodes;}
 
-    public String getStoreCode() {
-        return storeCode;
-    }
-
     public String getProductCode() {
         return productCode;
     }
@@ -37,8 +33,8 @@ public class Product {
     }
 
     public void updateAfterExchange(String storeCode){
-        this.storeCode = storeCode;
-        this.exchangeStatus = ExchangeStatus.UNAVAILABLE;
+        this.storeCode = storeCode; //실제 교환한 상점코드 저장
+        this.exchangeStatus = ExchangeStatus.UNAVAILABLE; //교환 가능 여부 변경
     }
 
 }
