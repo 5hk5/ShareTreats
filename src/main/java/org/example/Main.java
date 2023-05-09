@@ -1,11 +1,10 @@
-package org.productExchange;
+package org.example;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -112,7 +111,7 @@ public class Main {
             }
         }
 
-        return "상점코드 또는 상품코드를 다시 확인해주세요.";
+        return "상점코드 또는 상품코드가 유효하지 않습니다. 다시 확인해주세요.";
     }
 
 }

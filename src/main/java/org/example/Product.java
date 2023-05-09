@@ -1,4 +1,4 @@
-package org.productExchange;
+package org.example;
 
 import java.util.List;
 
@@ -23,10 +23,6 @@ public class Product {
     }
 
     public List<String> getAvailableStoreCodes(){return availableStoreCodes;}
-
-    public String getStoreCode() {
-        return storeCode;
-    }
 
     public String getProductCode() {
         return productCode;

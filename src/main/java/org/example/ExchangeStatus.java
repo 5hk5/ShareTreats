@@ -1,4 +1,4 @@
-package org.productExchange;
+package org.example;
 
 public enum ExchangeStatus {
 
