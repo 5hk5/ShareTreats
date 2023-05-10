@@ -18,10 +18,6 @@ public class Product {
         this.exchangeStatus = exchangeStatus;
     }
 
-    public void setAvailableStoreCodes(List<String> storeCodes){
-        this.availableStoreCodes=storeCodes;
-    }
-
     public List<String> getAvailableStoreCodes(){return availableStoreCodes;}
 
     public String getProductCode() {

@@ -26,17 +26,17 @@ public class Main {
 
     //상품 세팅
     private static void setProducts(){
-        products = new ArrayList<>();
-
         //상점 코드 세팅
         List<String> storeCodes = new ArrayList<>();
         storeCodes.add("dEjgDx");
         storeCodes.add("NoejZW");
 
+        //상품 세팅
+        products = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
             Product product = new Product(storeCodes, String.format("%09d", i), ExchangeStatus.AVAILABLE);
-            products.add(product);
-            product.setAvailableStoreCodes(storeCodes);
+            products.add(product); //상품 리스트에 추가
+
         }
     }
 
