@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -28,11 +29,13 @@ public class Main {
     private static void setProducts(){
         //상점 코드 세팅
         List<String> storeCodes = new ArrayList<>();
+        List<String> productCodes = new ArrayList<>();
         storeCodes.add("dEjgDx");
         storeCodes.add("NoejZW");
 
         //상품 세팅
         products = new ArrayList<>();
+
         for (int i = 1; i <= 10; i++) {
             Product product = new Product(storeCodes, String.format("%09d", i), ExchangeStatus.AVAILABLE);
             products.add(product); //상품 리스트에 추가
@@ -42,42 +45,37 @@ public class Main {
 
     //입력값 유효성 검사
     private static void validateInput(String input){
-        String newInput = input.replace(" ", ""); //공백 제거한 입력값
-
         //글자수 제한 (30자 이하 입력 가능)
         if (input.length() > 30){
             System.out.println("30자까지 입력하실 수 있습니다. 다시 입력해주세요.");
         }
 
-        //HELP 입력 시 안내사항 출력
-        if (input.equalsIgnoreCase("HELP")){
+        String newInput = input.replace(" ", ""); //공백 제거한 입력값
 
-            showInstruction();
-
-        //CHECK로 시작
-        } else if (Pattern.matches("^(?i)check.*$", newInput)){
-
-            if (Pattern.matches("^(?i)check[0-9]{9}", newInput)){ //숫자 개수 검사
-                System.out.println(checkExchangeStatus(newInput.substring(5)));; //상품코드 검사
-            } else {
-                System.out.println("상품 코드를 다시 확인해 주세요.");
-            }
-
-        //CLAIM으로 시작
-        } else if (Pattern.matches("^(?i)claim.*", newInput)){
-
-            if (Pattern.matches("^(?i)claim[a-zA-Z]{6}[0-9]{9}", newInput)){ //숫자 개수 검사
-                System.out.println(exchangeProduct(newInput.substring(5,11), newInput.substring(11))); //상점, 상품코드 검사
-            } else if (Pattern.matches("^(?i)claim[a-zA-Z]{6}.*",newInput)) {
-                System.out.println("상품 코드를 다시 확인해 주세요.");
-            } else {
-                System.out.println("상점 코드를 다시 확인해 주세요");
-            }
-
-        } else {
-
-            System.out.println("안내된 형식에 맞춰 다시 입력해주세요. HELP를 입력하면 안내사항을 다시 확인하실 수 있습니다.");
-
+        StringTokenizer st = new StringTokenizer(input);
+        switch (st.nextToken().toUpperCase()){
+            case "HELP" :
+                showInstruction();
+                break;
+            case "CHECK" :
+                if (Pattern.matches("^(?i)check[0-9]{9}", newInput)){ //숫자 개수 검사
+                    System.out.println(checkExchangeStatus(newInput.substring(5)));; //상품코드 검사
+                } else {
+                    System.out.println("상품 코드를 다시 확인해 주세요.");
+                }
+                break;
+            case "CLAIM" :
+                if (Pattern.matches("^(?i)claim[a-zA-Z]{6}[0-9]{9}", newInput)){ //숫자 개수 검사
+                    System.out.println(exchangeProduct(newInput.substring(5,11), newInput.substring(11))); //상점, 상품코드 검사
+                } else if (Pattern.matches("^(?i)claim[a-zA-Z]{6}.*",newInput)) {
+                    System.out.println("상품 코드를 다시 확인해 주세요.");
+                } else {
+                    System.out.println("상점 코드를 다시 확인해 주세요.");
+                }
+                break;
+            default:
+                System.out.println("안내된 형식에 맞춰 다시 입력해주세요. HELP를 입력하시면 안내사항을 다시 확인하실 수 있습니다.");
+                break;
         }
     }
 
@@ -111,7 +109,7 @@ public class Main {
             }
         }
 
-        return "상점코드 또는 상품코드가 유효하지 않습니다. 다시 확인해주세요.";
+        return "입력하신 상점코드 또는 상품코드가 존재하지 않습니다. 다시 확인해주세요.";
     }
 
 }
