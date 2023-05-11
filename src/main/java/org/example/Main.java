@@ -29,7 +29,6 @@ public class Main {
     private static void setProducts(){
         //상점 코드 세팅
         List<String> storeCodes = new ArrayList<>();
-        List<String> productCodes = new ArrayList<>();
         storeCodes.add("dEjgDx");
         storeCodes.add("NoejZW");
 
@@ -58,19 +57,27 @@ public class Main {
                 showInstruction();
                 break;
             case "CHECK" :
-                if (Pattern.matches("^(?i)check[0-9]{9}", newInput)){ //숫자 개수 검사
+                if (Pattern.matches("^(?i)check[0-9]{9}$", newInput)){ //숫자 개수 검사
                     System.out.println(checkExchangeStatus(newInput.substring(5)));; //상품코드 검사
+                } else if (Pattern.matches("^(?i).*[0-9]{9}$", newInput)){
+                        System.out.println("상품코드만 입력해 주세요.");
+                } else if (newInput.length()!=14){
+                    System.out.println("상품코드 9자리를 입력해 주세요.");
                 } else {
-                    System.out.println("상품 코드를 다시 확인해 주세요.");
+                    System.out.println("HELP로 안내사항을 다시 확인해 주세요.");
                 }
                 break;
             case "CLAIM" :
-                if (Pattern.matches("^(?i)claim[a-zA-Z]{6}[0-9]{9}", newInput)){ //숫자 개수 검사
+                if (Pattern.matches("^(?i)claim[a-zA-Z]{6}[0-9]{9}$", newInput)){ //숫자 개수 검사
                     System.out.println(exchangeProduct(newInput.substring(5,11), newInput.substring(11))); //상점, 상품코드 검사
-                } else if (Pattern.matches("^(?i)claim[a-zA-Z]{6}.*",newInput)) {
-                    System.out.println("상품 코드를 다시 확인해 주세요.");
+                } else if (newInput.length()!=20 && Pattern.matches("^(?i)claim[a-zA-Z]{6}.*$",newInput)) {
+                    System.out.println("상품코드 9자리를 입력해 주세요.");
+                } else if ((newInput.length()!=20 && Pattern.matches("^(?i)claim.*[0-9]{9}$",newInput))){
+                    System.out.println("상점코드 6자리를 입력해 주세요.");
+                } else if (newInput.length()<6){
+                    System.out.println("상점코드와 상품코드를 입력해 주세요.");
                 } else {
-                    System.out.println("상점 코드를 다시 확인해 주세요.");
+                    System.out.println("HELP로 안내사항을 다시 확인해 주세요.");
                 }
                 break;
             default:
@@ -109,7 +116,17 @@ public class Main {
             }
         }
 
-        return "입력하신 상점코드 또는 상품코드가 존재하지 않습니다. 다시 확인해주세요.";
+        for (int i=0;i<products.size();i++){
+            if(products.get(i).getProductCode().equals(productCode)
+                    && !products.get(i).getAvailableStoreCodes().contains(storeCode) ){
+                return "입력하신 상점코드가 존재하지 않습니다.";
+            } else if (!products.get(i).getProductCode().equals(productCode)
+                    && products.get(i).getAvailableStoreCodes().contains(storeCode)){
+                return "입력하신 상품코드가 존재하지 않습니다.";
+            }
+        }
+
+        return "입력하신 상점코드 또는 상품코드가 존재하지 않습니다.";
     }
 
 }
