@@ -27,17 +27,17 @@ public class Main {
 
     //상품 세팅
     private static void setProducts(){
-        //상품 리스트 세팅
-        products = new ArrayList<>();
+        //상점 코드 세팅
+        List<String> storeCodes = new ArrayList<>();
+        List<String> productCodes = new ArrayList<>();
+        storeCodes.add("dEjgDx");
+        storeCodes.add("NoejZW");
 
         //상품 세팅
+        products = new ArrayList<>();
+
         for (int i = 1; i <= 10; i++) {
-            Product product;
-            if (i<=5){
-                product = new Product("dEjgDx", String.format("%09d", i), ExchangeStatus.AVAILABLE);
-            } else {
-                product = new Product("kopbSA", String.format("%09d", i), ExchangeStatus.AVAILABLE);
-            }
+            Product product = new Product(storeCodes, String.format("%09d", i), ExchangeStatus.AVAILABLE);
             products.add(product); //상품 리스트에 추가
 
         }
@@ -102,8 +102,8 @@ public class Main {
     private static String exchangeProduct(String storeCode, String productCode){
         for (int i=0;i<products.size();i++){
             if(products.get(i).getProductCode().equals(productCode) //상품코드 확인
-                    && products.get(i).getStoreCode().equals(storeCode)){ //상점코드 확인
-                products.get(i).updateExchangeStatus(storeCode); //상태 UNAVAILABLE로 변경
+                    && products.get(i).getAvailableStoreCodes().contains(storeCode)){ //교환 가능한 상점코드 확인
+                products.get(i).updateAfterExchange(storeCode); //교환한 상점 코드 저장, 상태 UNAVAILABLE로 변경
 
                 return storeCode + " " + productCode + " 상품이 교환 완료되었습니다.";
             }
