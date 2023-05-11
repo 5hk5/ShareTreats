@@ -4,21 +4,19 @@ import java.util.List;
 
 public class Product {
 
-    private List<String> availableStoreCodes; //교환 가능한 상점들
-
-    private String storeCode; //교환된 상점
+    private String storeCode;
 
     private String productCode;
 
     private ExchangeStatus exchangeStatus;
 
-    Product(List<String> availableStoreCodes, String productCode, ExchangeStatus exchangeStatus){
-        this.availableStoreCodes = availableStoreCodes;
+    Product(String storeCode, String productCode, ExchangeStatus exchangeStatus){
+        this.storeCode = storeCode;
         this.productCode = productCode;
         this.exchangeStatus = exchangeStatus;
     }
 
-    public List<String> getAvailableStoreCodes(){return availableStoreCodes;}
+    public String getStoreCode(){return storeCode;}
 
     public String getProductCode() {
         return productCode;
@@ -28,8 +26,7 @@ public class Product {
         return exchangeStatus;
     }
 
-    public void updateAfterExchange(String storeCode){
-        this.storeCode = storeCode;
+    public void updateExchangeStatus(String storeCode){
         this.exchangeStatus = ExchangeStatus.UNAVAILABLE;
     }
 
